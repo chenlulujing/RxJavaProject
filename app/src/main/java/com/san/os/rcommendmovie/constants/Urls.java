@@ -9,6 +9,6 @@ package com.san.os.rcommendmovie.constants;
 public class Urls {
 
     public static final String GET_MOVIES_LIST = "http://59.151.102.96/yicheappsug.php";
-    public static final String GET_GET1 = "http://172.20.45.14:9100/get1";
-    public static final String GET_GET2= "http://172.20.45.14:9100/get2";
+    public static final String GET_GET1 = "http://172.20.43.72:8087/get1";
+    public static final String GET_GET2= "http://172.20.43.72:8087/get2";
 }

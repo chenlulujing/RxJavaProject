@@ -27,11 +27,11 @@ public class MovieItemsDataSource extends BaseDataSource<MovieItemsService> {
         return mRetrofit.getMoviesItemList(k).compose(RxUtil.getDefaultTransformer());
     }
 
-    public Observable<NetResult<String>> get1() {
+    public Observable<NetResult<String>> getNewsList() {
         return mRetrofit.get1().compose(RxUtil.<NetResult<String>>getTransformer());
     }
 
-    public Observable<NetResult<Integer>> get2() {
+    public Observable<NetResult<Integer>> getAD() {
         return mRetrofit.get2().compose(RxUtil.<NetResult<Integer>>getTransformer());
     }
 
