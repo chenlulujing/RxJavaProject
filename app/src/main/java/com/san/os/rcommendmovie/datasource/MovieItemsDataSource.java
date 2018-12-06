@@ -2,6 +2,8 @@ package com.san.os.rcommendmovie.datasource;
 
 import com.san.os.rcommendmovie.model.MoviesItemsModel;
 import com.san.os.rcommendmovie.retrofit.NetResult;
+import com.san.os.rcommendmovie.retrofit.RetrofitHelper;
+import com.san.os.rcommendmovie.retrofit.RrtrofitClient;
 import com.san.os.rcommendmovie.rx.RxUtil;
 import com.san.os.rcommendmovie.service.MovieItemsService;
 
@@ -28,6 +30,9 @@ public class MovieItemsDataSource extends BaseDataSource<MovieItemsService> {
     }
 
     public Observable<NetResult<String>> getNewsList() {
+
+//        RetrofitHelper.getBuilder().baseUrl("http://api.api").build().create(MovieItemsService.class).
+
         return mRetrofit.get1().compose(RxUtil.<NetResult<String>>getTransformer());
     }
 

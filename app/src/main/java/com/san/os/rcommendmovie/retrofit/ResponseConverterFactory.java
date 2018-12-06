@@ -13,9 +13,7 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 
 /**
- * Description: 返回数据解析工厂
- * author: Lyongwang
- * date: 2017/5/17 下午4:30
+ * 返回数据解析工厂
  */
 public class ResponseConverterFactory extends Converter.Factory {
     /**
@@ -37,7 +35,9 @@ public class ResponseConverterFactory extends Converter.Factory {
     private final Gson gson;
 
     private ResponseConverterFactory(Gson gson) {
-        if (gson == null) throw new NullPointerException("gson == null");
+        if (gson == null) {
+            throw new NullPointerException("gson == null");
+        }
         this.gson = gson;
     }
 

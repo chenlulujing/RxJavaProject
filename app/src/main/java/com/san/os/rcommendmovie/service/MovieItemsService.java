@@ -21,8 +21,6 @@ public interface MovieItemsService {
     @GET(Urls.GET_MOVIES_LIST)
     Observable<MoviesItemsModel> getMoviesItemList(@Query(UrlParams.k) String key);
 
-
-
     @GET(Urls.GET_GET1)
     Observable<NetResult<String>> get1();
     @GET(Urls.GET_GET2)

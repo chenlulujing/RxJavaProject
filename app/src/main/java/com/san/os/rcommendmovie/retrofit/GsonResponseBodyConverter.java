@@ -37,14 +37,13 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
             //ErrResponse 将msg解析为异常消息文本
             throw new CParserException(e.getMessage(), response);
         } finally {
+
         }
     }
 
     /**
      * Description: 获取T类型数据对象
-     * author: Lyongwang
      * date: 2017/5/17 下午4:29
-     *
      * @param response
      * @return
      */
