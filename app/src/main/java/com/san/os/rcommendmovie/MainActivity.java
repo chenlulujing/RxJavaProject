@@ -9,9 +9,13 @@ import android.view.View;
 import com.san.os.rcommendmovie.datasource.MovieItemsDataSource;
 import com.san.os.rcommendmovie.retrofit.NetResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -23,6 +27,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
+    private List<String> mList = new ArrayList<>();
 
     static {
         RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
@@ -76,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initview() {
-
         findViewById(R.id.button7).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,6 +177,118 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        for(int i=0,size = 10;i<size;i++){
+            mList.add(i+"");
+        }
+
+        findViewById(R.id.fromIterable_create).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Observable.fromIterable(mList)
+                        .concatMap(new Function<String, Observable<Integer>>() {
+                            @Override
+                            public Observable<Integer> apply(final String s) throws Exception {
+                                return Observable.create(new ObservableOnSubscribe<Integer>() {
+                                    @Override
+                                    public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                                        emitter.onNext(Integer.parseInt(s));
+                                        emitter.onComplete();
+                                    }
+                                });
+                            }
+                        }).subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable disposable) {
+                        Log.i("ll_rx","onSubscribe()");
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.i("ll_rx","onNext() integer = "+integer);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        Log.i("ll_rx","onError()");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i("ll_rx","onComplete()");
+                    }
+                });
+            }
+        });
+
+        findViewById(R.id.fromIterable).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Observable.fromIterable(mList)
+                        .concatMap(new Function<String, ObservableSource<NetResult<Integer>>>() {
+                            @Override
+                            public ObservableSource<NetResult<Integer>> apply(final String s) throws Exception {
+                                Log.i("ll_rx","apply() s= "+s);
+                                return new MovieItemsDataSource().getAD();
+                            }
+                        }).subscribe(new Observer<NetResult<Integer>>() {
+                    @Override
+                    public void onSubscribe(Disposable disposable) {
+                        Log.i("ll_rx","onSubscribe()");
+                    }
+
+                    @Override
+                    public void onNext(NetResult<Integer> result) {
+                        Log.i("ll_rx","onNext() integer = "+result.data);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        Log.i("ll_rx","onError()");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i("ll_rx","onComplete()");
+                    }
+                });
+            }
+        });
+
+
+        findViewById(R.id.toList).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Observable.fromIterable(mList)
+                        .concatMap(new Function<String, Observable<Integer>>() {
+                            @Override
+                            public Observable<Integer> apply(final String s) throws Exception {
+                                return Observable.create(new ObservableOnSubscribe<Integer>() {
+                                    @Override
+                                    public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                                        emitter.onNext(Integer.parseInt(s));
+                                        emitter.onComplete();
+                                    }
+                                });
+                            }
+                        }).toList().subscribe(new Consumer<List<Integer>>() {
+                    @Override
+                    public void accept(List<Integer> lists) throws Exception {
+                        Log.i("ll_rx", "result lists = " + lists);
+                        for (Integer item : lists) {
+                            Log.i("ll_rx", "result item= " + item);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
+
+            }
+        });
+
     }
 
 

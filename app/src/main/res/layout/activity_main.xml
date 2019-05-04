@@ -71,4 +71,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="button8" />
+    <Button
+        android:id="@+id/fromIterable_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fromIterable_create" />
+    <Button
+        android:id="@+id/fromIterable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fromIterable" />
+    <Button
+        android:id="@+id/toList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="toList" />
 </LinearLayout>
