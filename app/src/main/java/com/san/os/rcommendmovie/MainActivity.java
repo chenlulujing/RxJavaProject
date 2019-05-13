@@ -1,13 +1,16 @@
 package com.san.os.rcommendmovie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.san.os.rcommendmovie.datasource.MovieItemsDataSource;
 import com.san.os.rcommendmovie.retrofit.NetResult;
+import com.san.os.rcommendmovie.viewpager.ViewPgaerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -266,6 +269,8 @@ public class MainActivity extends AppCompatActivity {
                                 return Observable.create(new ObservableOnSubscribe<Integer>() {
                                     @Override
                                     public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                                        Log.i("ll_rx", "耗时操作" );
+                                        Thread.sleep(5000);
                                         emitter.onNext(Integer.parseInt(s));
                                         emitter.onComplete();
                                     }
@@ -289,6 +294,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        findViewById(R.id.viewpager).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(MainActivity.this, ViewPgaerActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -342,6 +355,10 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return statusBarHeight;
+    }
+
+    private void updateProgress(int progress){
+        ((TextView)findViewById(R.id.content)).setText(progress+"");
     }
 
 }
